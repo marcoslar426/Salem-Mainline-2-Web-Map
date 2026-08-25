@@ -14,7 +14,6 @@
         <link rel="stylesheet" href="css/leaflet-search.css">
         <link rel="stylesheet" href="css/leaflet.photon.css">
         <link rel="stylesheet" href="css/leaflet-measure.css">
-<link rel="stylesheet" href="css/progress.css">
         <style>
         html, body, #map {
             width: 100%;
@@ -46,6 +45,7 @@
         <script src="data/Mainline2Centerline_2.js"></script>
         <script src="data/LOD_3.js"></script>
         <script src="data/SurveyPoints_4.js"></script>
+        <script src="data/ProgressProject_5.js"></script>
         <script>
         var highlightLayer;
         function highlightFeature(e) {
@@ -64,7 +64,7 @@
         }
         var map = L.map('map', {
             zoomControl:false, maxZoom:28, minZoom:1
-        }).fitBounds([[42.709680094640824,-85.8234417127367],[42.71437250083192,-85.81420248813609]]);
+        }).fitBounds([[42.70769331138098,-85.8374998579108],[42.72594777937975,-85.80054295950838]]);
         var hash = new L.Hash(map);
         map.attributionControl.setPrefix('<a href="https://github.com/qgis2web/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot; <a href="https://qgis.org">QGIS</a>');
         var autolinker = new Autolinker({truncate: {length: 30, location: 'smart'}});
@@ -468,7 +468,7 @@
                         <th scope="row">STATUS</th>\
                         <td class="visible-with-data" id="STATUS">' + (feature.properties['STATUS'] !== null ? autolinker.link(String(feature.properties['STATUS']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
                     </tr>\
-                 <tr>\
+                    <tr>\
 <th scope="row">PHOTO</th>\
 <td class="visible-with-data" id="PHOTO">' + 
 (feature.properties['PHOTO'] ? 
@@ -528,7 +528,83 @@
         });
         bounds_group.addLayer(layer_SurveyPoints_4);
         map.addLayer(layer_SurveyPoints_4);
+        function pop_ProgressProject_5(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    for (var i in e.target._eventParents) {
+                        if (typeof e.target._eventParents[i].resetStyle === 'function') {
+                            e.target._eventParents[i].resetStyle(e.target);
+                        }
+                    }
+                },
+                mouseover: highlightFeature,
+            });
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['id'] !== null ? autolinker.link(String(feature.properties['id']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">PROJECT</th>\
+                        <td class="visible-with-data" id="PROJECT">' + (feature.properties['PROJECT'] !== null ? autolinker.link(String(feature.properties['PROJECT']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['TOTAL_FT'] !== null ? autolinker.link(String(feature.properties['TOTAL_FT']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['INSTALLED'] !== null ? autolinker.link(String(feature.properties['INSTALLED']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['PERCENT'] !== null ? autolinker.link(String(feature.properties['PERCENT']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">progress_TOTAL_FT</th>\
+                        <td class="visible-with-data" id="progress_TOTAL_FT">' + (feature.properties['progress_TOTAL_FT'] !== null ? autolinker.link(String(feature.properties['progress_TOTAL_FT']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">progress_INSTALLED_FT</th>\
+                        <td class="visible-with-data" id="progress_INSTALLED_FT">' + (feature.properties['progress_INSTALLED_FT'] !== null ? autolinker.link(String(feature.properties['progress_INSTALLED_FT']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">progress_PERCENT</th>\
+                        <td class="visible-with-data" id="progress_PERCENT">' + (feature.properties['progress_PERCENT'] !== null ? autolinker.link(String(feature.properties['progress_PERCENT']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            var content = removeEmptyRowsFromPopupContent(popupContent, feature);
+			layer.on('popupopen', function(e) {
+				addClassToPopupIfMedia(content, e.popup);
+			});
+			layer.bindPopup(content, { maxHeight: 400 });
+        }
+
+        function style_ProgressProject_5_0() {
+            return {
+                fill: false,
+                stroke: false,
+                interactive: false
+            }
+        }
+        map.createPane('pane_ProgressProject_5');
+        map.getPane('pane_ProgressProject_5').style.zIndex = 405;
+        map.getPane('pane_ProgressProject_5').style['mix-blend-mode'] = 'normal';
+        var layer_ProgressProject_5 = new L.geoJson(json_ProgressProject_5, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_ProgressProject_5',
+            layerName: 'layer_ProgressProject_5',
+            pane: 'pane_ProgressProject_5',
+            onEachFeature: pop_ProgressProject_5,
+            pointToLayer: function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.circleMarker(latlng, style_ProgressProject_5_0(feature));
+            },
+        });
+        bounds_group.addLayer(layer_ProgressProject_5);
+        map.addLayer(layer_ProgressProject_5);
         var overlaysTree = [
+            {label: 'Progress - Project', layer: layer_ProgressProject_5},
             {label: '<img src="legend/SurveyPoints_4.png" /> Survey Points', layer: layer_SurveyPoints_4},
             {label: '<img src="legend/LOD_3.png" /> LOD', layer: layer_LOD_3},
             {label: '<img src="legend/Mainline2Centerline_2.png" /> Mainline 2 Centerline', layer: layer_Mainline2Centerline_2},
@@ -608,6 +684,19 @@
               addLabel(layer, i);
               i++;
         });
+        var i = 0;
+        layer_ProgressProject_5.eachLayer(function(layer) {
+            var context = {
+                feature: layer.feature,
+                variables: {}
+            };
+            layer.bindTooltip((exp_label_ProgressProject_5_eval_expression(context) !== null?String('<div style="color: #313131; font-size: 10pt; font-weight: bold; font-family: \'Arial\', sans-serif;">' + exp_label_ProgressProject_5_eval_expression(context)) + '</div>':''), {permanent: true, offset: [-0, -16], className: 'css_ProgressProject_5'});
+            labels.push(layer);
+            totalMarkers += 1;
+              layer.added = true;
+              addLabel(layer, i);
+              i++;
+        });
         map.addControl(new L.Control.Search({
             layer: layer_SurveyPoints_4,
             initial: false,
@@ -618,17 +707,72 @@
         } else {
             document.getElementsByClassName('search-button')[1].className += ' fa fa-binoculars';
         }
-        resetLabels([layer_SurveyPoints_4]);
+        resetLabels([layer_SurveyPoints_4,layer_ProgressProject_5]);
         map.on("zoomend", function(){
-            resetLabels([layer_SurveyPoints_4]);
+            resetLabels([layer_SurveyPoints_4,layer_ProgressProject_5]);
         });
         map.on("layeradd", function(){
-            resetLabels([layer_SurveyPoints_4]);
+            resetLabels([layer_SurveyPoints_4,layer_ProgressProject_5]);
         });
         map.on("layerremove", function(){
-            resetLabels([layer_SurveyPoints_4]);
+            resetLabels([layer_SurveyPoints_4,layer_ProgressProject_5]);
         });
-        </script>    
-<script src="js/progress.js"></script>    
+        </script>  
+<script>
+(function () {
+
+    /* Hide the original moving Progress label */
+    var style = document.createElement('style');
+    style.innerHTML = '.css_ProgressProject_5 { display:none !important; }';
+    document.head.appendChild(style);
+
+    /* Pull the current progress values from the exported QGIS layer */
+    var p = json_ProgressProject_5.features[0].properties;
+
+    /* Create fixed progress card */
+    var card = L.control({position: 'topleft'});
+
+    card.onAdd = function () {
+        var div = L.DomUtil.create('div');
+
+        div.innerHTML =
+            '<div style="' +
+            'background:rgba(255,255,255,0.90);' +
+            'padding:10px 18px;' +
+            'border-radius:10px;' +
+            'box-shadow:0 2px 8px rgba(0,0,0,0.25);' +
+            'font-family:Arial,sans-serif;' +
+            'text-align:center;' +
+            'color:#222;' +
+            'line-height:1.25;' +
+            '">' +
+            '<div style="font-size:18px;font-weight:bold;">' +
+            p.PROJECT +
+            '</div>' +
+
+            '<div style="font-size:15px;font-weight:bold;">' +
+            p.progress_PERCENT +
+            ' Complete</div>' +
+
+            '<div style="font-size:14px;">' +
+            Number(p.progress_INSTALLED_FT).toLocaleString(undefined,{
+                minimumFractionDigits:1,
+                maximumFractionDigits:1
+            }) +
+            ' / ' +
+            Number(p.progress_TOTAL_FT).toLocaleString(undefined,{
+                maximumFractionDigits:0
+            }) +
+            ' FT</div>' +
+            '</div>';
+
+        L.DomEvent.disableClickPropagation(div);
+        return div;
+    };
+
+    card.addTo(map);
+
+})();
+</script>      
     </body>
 </html>

@@ -194,3 +194,13 @@
             justify-content: center;
             align-items: center;
         }
+        .css_ProgressProject_5 {
+            text-shadow: -1px -1px 0 #ffffff,
+                -1px 0px 0 #ffffff,
+                -1px 1px 0 #ffffff,
+                0px -1px 0 #ffffff,
+                0px 1px 0 #ffffff,
+                1px -1px 0 #ffffff,
+                1px 0px 0 #ffffff,
+                1px 1px 0 #ffffff;
+        }
