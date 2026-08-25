@@ -11,8 +11,10 @@
         <link rel="stylesheet" href="css/L.Control.Locate.min.css">
         <link rel="stylesheet" href="css/qgis2web.css">
         <link rel="stylesheet" href="css/fontawesome-all.min.css">
+        <link rel="stylesheet" href="css/leaflet-search.css">
         <link rel="stylesheet" href="css/leaflet.photon.css">
         <link rel="stylesheet" href="css/leaflet-measure.css">
+<link rel="stylesheet" href="css/progress.css">
         <style>
         html, body, #map {
             width: 100%;
@@ -39,6 +41,7 @@
         <script src="js/labels.js"></script>
         <script src="js/leaflet.photon.js"></script>
         <script src="js/leaflet-measure.js"></script>
+        <script src="js/leaflet-search.js"></script>
         <script src="data/ML2Wetland_1.js"></script>
         <script src="data/Mainline2Centerline_2.js"></script>
         <script src="data/LOD_3.js"></script>
@@ -61,7 +64,7 @@
         }
         var map = L.map('map', {
             zoomControl:false, maxZoom:28, minZoom:1
-        }).fitBounds([[42.709848059534885,-85.82296118826237],[42.71241626146172,-85.81834157596207]]);
+        }).fitBounds([[42.709680094640824,-85.8234417127367],[42.71437250083192,-85.81420248813609]]);
         var hash = new L.Hash(map);
         map.attributionControl.setPrefix('<a href="https://github.com/qgis2web/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot; <a href="https://qgis.org">QGIS</a>');
         var autolinker = new Autolinker({truncate: {length: 30, location: 'smart'}});
@@ -465,7 +468,7 @@
                         <th scope="row">STATUS</th>\
                         <td class="visible-with-data" id="STATUS">' + (feature.properties['STATUS'] !== null ? autolinker.link(String(feature.properties['STATUS']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
                     </tr>\
-                  <tr>\
+                 <tr>\
 <th scope="row">PHOTO</th>\
 <td class="visible-with-data" id="PHOTO">' + 
 (feature.properties['PHOTO'] ? 
@@ -605,6 +608,16 @@
               addLabel(layer, i);
               i++;
         });
+        map.addControl(new L.Control.Search({
+            layer: layer_SurveyPoints_4,
+            initial: false,
+            hideMarkerOnCollapse: true,
+            propertyName: 'WELD_NUM'}));
+        if (typeof url === 'undefined') {
+            document.getElementsByClassName('search-button')[0].className += ' fa fa-binoculars';
+        } else {
+            document.getElementsByClassName('search-button')[1].className += ' fa fa-binoculars';
+        }
         resetLabels([layer_SurveyPoints_4]);
         map.on("zoomend", function(){
             resetLabels([layer_SurveyPoints_4]);
@@ -615,6 +628,7 @@
         map.on("layerremove", function(){
             resetLabels([layer_SurveyPoints_4]);
         });
-        </script>        
+        </script>    
+<script src="js/progress.js"></script>    
     </body>
 </html>
