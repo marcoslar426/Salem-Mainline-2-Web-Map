@@ -64,7 +64,7 @@
         }
         var map = L.map('map', {
             zoomControl:false, maxZoom:28, minZoom:1
-        }).fitBounds([[42.70769331138098,-85.8374998579108],[42.72594777937975,-85.80054295950838]]);
+        }).fitBounds([[42.71719816368885,-85.82394619539822],[42.721890569879946,-85.81470697079762]]);
         var hash = new L.Hash(map);
         map.attributionControl.setPrefix('<a href="https://github.com/qgis2web/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot; <a href="https://qgis.org">QGIS</a>');
         var autolinker = new Autolinker({truncate: {length: 30, location: 'smart'}});
@@ -464,11 +464,7 @@
                         <th scope="row">LONG</th>\
                         <td class="visible-with-data" id="LONG">' + (feature.properties['LONG'] !== null ? autolinker.link(String(feature.properties['LONG']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
                     </tr>\
-                    <tr>\
-                        <th scope="row">STATUS</th>\
-                        <td class="visible-with-data" id="STATUS">' + (feature.properties['STATUS'] !== null ? autolinker.link(String(feature.properties['STATUS']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
+                  <tr>\
 <th scope="row">PHOTO</th>\
 <td class="visible-with-data" id="PHOTO">' + 
 (feature.properties['PHOTO'] ? 
@@ -717,7 +713,7 @@
         map.on("layerremove", function(){
             resetLabels([layer_SurveyPoints_4,layer_ProgressProject_5]);
         });
-        </script>  
+        </script>
 <script>
 (function () {
 
@@ -917,6 +913,6 @@
     card.addTo(map);
 
 })();
-</script>
+</script>        
     </body>
 </html>
