@@ -46,6 +46,7 @@
         <script src="data/LOD_3.js"></script>
         <script src="data/SurveyPoints_4.js"></script>
         <script src="data/ProgressProject_5.js"></script>
+        <script src="data/Lineconections_6.js"></script>
         <script>
         var highlightLayer;
         function highlightFeature(e) {
@@ -64,7 +65,7 @@
         }
         var map = L.map('map', {
             zoomControl:false, maxZoom:28, minZoom:1
-        }).fitBounds([[42.71719816368885,-85.82394619539822],[42.721890569879946,-85.81470697079762]]);
+        }).fitBounds([[42.71182329289835,-85.83095801005864],[42.721208105280546,-85.81247956085743]]);
         var hash = new L.Hash(map);
         map.attributionControl.setPrefix('<a href="https://github.com/qgis2web/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot; <a href="https://qgis.org">QGIS</a>');
         var autolinker = new Autolinker({truncate: {length: 30, location: 'smart'}});
@@ -464,7 +465,11 @@
                         <th scope="row">LONG</th>\
                         <td class="visible-with-data" id="LONG">' + (feature.properties['LONG'] !== null ? autolinker.link(String(feature.properties['LONG']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
                     </tr>\
-                  <tr>\
+                    <tr>\
+                        <th scope="row">STATUS</th>\
+                        <td class="visible-with-data" id="STATUS">' + (feature.properties['STATUS'] !== null ? autolinker.link(String(feature.properties['STATUS']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
 <th scope="row">PHOTO</th>\
 <td class="visible-with-data" id="PHOTO">' + 
 (feature.properties['PHOTO'] ? 
@@ -599,7 +604,58 @@
         });
         bounds_group.addLayer(layer_ProgressProject_5);
         map.addLayer(layer_ProgressProject_5);
+        function pop_Lineconections_6(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    for (var i in e.target._eventParents) {
+                        if (typeof e.target._eventParents[i].resetStyle === 'function') {
+                            e.target._eventParents[i].resetStyle(e.target);
+                        }
+                    }
+                },
+                mouseover: highlightFeature,
+            });
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['id'] !== null ? autolinker.link(String(feature.properties['id']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            var content = removeEmptyRowsFromPopupContent(popupContent, feature);
+			layer.on('popupopen', function(e) {
+				addClassToPopupIfMedia(content, e.popup);
+			});
+			layer.bindPopup(content, { maxHeight: 400 });
+        }
+
+        function style_Lineconections_6_0() {
+            return {
+                pane: 'pane_Lineconections_6',
+                opacity: 1,
+                color: 'rgba(249,253,7,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 4.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+        }
+        map.createPane('pane_Lineconections_6');
+        map.getPane('pane_Lineconections_6').style.zIndex = 406;
+        map.getPane('pane_Lineconections_6').style['mix-blend-mode'] = 'normal';
+        var layer_Lineconections_6 = new L.geoJson(json_Lineconections_6, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_Lineconections_6',
+            layerName: 'layer_Lineconections_6',
+            pane: 'pane_Lineconections_6',
+            onEachFeature: pop_Lineconections_6,
+            style: style_Lineconections_6_0,
+        });
+        bounds_group.addLayer(layer_Lineconections_6);
+        map.addLayer(layer_Lineconections_6);
         var overlaysTree = [
+            {label: '<img src="legend/Lineconections_6.png" /> Line conections', layer: layer_Lineconections_6},
             {label: 'Progress - Project', layer: layer_ProgressProject_5},
             {label: '<img src="legend/SurveyPoints_4.png" /> Survey Points', layer: layer_SurveyPoints_4},
             {label: '<img src="legend/LOD_3.png" /> LOD', layer: layer_LOD_3},
@@ -713,7 +769,7 @@
         map.on("layerremove", function(){
             resetLabels([layer_SurveyPoints_4,layer_ProgressProject_5]);
         });
-        </script>
+        </script>        
 <script>
 (function () {
 
@@ -913,6 +969,6 @@
     card.addTo(map);
 
 })();
-</script>        
+</script>
     </body>
 </html>
