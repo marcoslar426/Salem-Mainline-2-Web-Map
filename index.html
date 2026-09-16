@@ -11,7 +11,6 @@
         <link rel="stylesheet" href="css/L.Control.Locate.min.css">
         <link rel="stylesheet" href="css/qgis2web.css">
         <link rel="stylesheet" href="css/fontawesome-all.min.css">
-        <link rel="stylesheet" href="css/leaflet-search.css">
         <link rel="stylesheet" href="css/leaflet.photon.css">
         <link rel="stylesheet" href="css/leaflet-measure.css">
         <style>
@@ -40,13 +39,13 @@
         <script src="js/labels.js"></script>
         <script src="js/leaflet.photon.js"></script>
         <script src="js/leaflet-measure.js"></script>
-        <script src="js/leaflet-search.js"></script>
         <script src="data/ML2Wetland_1.js"></script>
         <script src="data/Mainline2Centerline_2.js"></script>
         <script src="data/LOD_3.js"></script>
         <script src="data/SurveyPoints_4.js"></script>
         <script src="data/ProgressProject_5.js"></script>
         <script src="data/Lineconections_6.js"></script>
+        <script src="data/Abandoned16in_7.js"></script>
         <script>
         var highlightLayer;
         function highlightFeature(e) {
@@ -65,7 +64,7 @@
         }
         var map = L.map('map', {
             zoomControl:false, maxZoom:28, minZoom:1
-        }).fitBounds([[42.70892054901035,-85.82194862866861],[42.71126675210589,-85.8173290163683]]);
+        }).fitBounds([[42.71358154533748,-85.82572096207642],[42.72296635771968,-85.8072425128752]]);
         var hash = new L.Hash(map);
         map.attributionControl.setPrefix('<a href="https://github.com/qgis2web/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot; <a href="https://qgis.org">QGIS</a>');
         var autolinker = new Autolinker({truncate: {length: 30, location: 'smart'}});
@@ -469,7 +468,7 @@
                         <th scope="row">STATUS</th>\
                         <td class="visible-with-data" id="STATUS">' + (feature.properties['STATUS'] !== null ? autolinker.link(String(feature.properties['STATUS']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
                     </tr>\
-                    <tr>\
+            <tr>\
 <th scope="row">PHOTO</th>\
 <td class="visible-with-data" id="PHOTO">' + 
 (feature.properties['PHOTO'] ? 
@@ -654,7 +653,58 @@
         });
         bounds_group.addLayer(layer_Lineconections_6);
         map.addLayer(layer_Lineconections_6);
+        function pop_Abandoned16in_7(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    for (var i in e.target._eventParents) {
+                        if (typeof e.target._eventParents[i].resetStyle === 'function') {
+                            e.target._eventParents[i].resetStyle(e.target);
+                        }
+                    }
+                },
+                mouseover: highlightFeature,
+            });
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['id'] !== null ? autolinker.link(String(feature.properties['id']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            var content = removeEmptyRowsFromPopupContent(popupContent, feature);
+			layer.on('popupopen', function(e) {
+				addClassToPopupIfMedia(content, e.popup);
+			});
+			layer.bindPopup(content, { maxHeight: 400 });
+        }
+
+        function style_Abandoned16in_7_0() {
+            return {
+                pane: 'pane_Abandoned16in_7',
+                opacity: 1,
+                color: 'rgba(109,109,109,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 4.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+        }
+        map.createPane('pane_Abandoned16in_7');
+        map.getPane('pane_Abandoned16in_7').style.zIndex = 407;
+        map.getPane('pane_Abandoned16in_7').style['mix-blend-mode'] = 'normal';
+        var layer_Abandoned16in_7 = new L.geoJson(json_Abandoned16in_7, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_Abandoned16in_7',
+            layerName: 'layer_Abandoned16in_7',
+            pane: 'pane_Abandoned16in_7',
+            onEachFeature: pop_Abandoned16in_7,
+            style: style_Abandoned16in_7_0,
+        });
+        bounds_group.addLayer(layer_Abandoned16in_7);
+        map.addLayer(layer_Abandoned16in_7);
         var overlaysTree = [
+            {label: '<img src="legend/Abandoned16in_7.png" /> Abandoned 16in', layer: layer_Abandoned16in_7},
             {label: '<img src="legend/Lineconections_6.png" /> Line conections', layer: layer_Lineconections_6},
             {label: 'Progress - Project', layer: layer_ProgressProject_5},
             {label: '<img src="legend/SurveyPoints_4.png" /> Survey Points', layer: layer_SurveyPoints_4},
@@ -749,16 +799,6 @@
               addLabel(layer, i);
               i++;
         });
-        map.addControl(new L.Control.Search({
-            layer: layer_SurveyPoints_4,
-            initial: false,
-            hideMarkerOnCollapse: true,
-            propertyName: 'WELD_NUM'}));
-        if (typeof url === 'undefined') {
-            document.getElementsByClassName('search-button')[0].className += ' fa fa-binoculars';
-        } else {
-            document.getElementsByClassName('search-button')[1].className += ' fa fa-binoculars';
-        }
         resetLabels([layer_SurveyPoints_4,layer_ProgressProject_5]);
         map.on("zoomend", function(){
             resetLabels([layer_SurveyPoints_4,layer_ProgressProject_5]);
@@ -769,7 +809,7 @@
         map.on("layerremove", function(){
             resetLabels([layer_SurveyPoints_4,layer_ProgressProject_5]);
         });
-        </script>        
+        </script>  
 <script>
 (function () {
 
@@ -969,6 +1009,6 @@
     card.addTo(map);
 
 })();
-</script>
+</script>      
     </body>
 </html>
