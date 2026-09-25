@@ -64,7 +64,7 @@
         }
         var map = L.map('map', {
             zoomControl:false, maxZoom:28, minZoom:1
-        }).fitBounds([[42.72104624386474,-85.82099548366088],[42.72133951925168,-85.82041803212334]]);
+        }).fitBounds([[42.7111943993206,-85.82499138084366],[42.717450940889016,-85.81267241474832]]);
         var hash = new L.Hash(map);
         map.attributionControl.setPrefix('<a href="https://github.com/qgis2web/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot; <a href="https://qgis.org">QGIS</a>');
         var autolinker = new Autolinker({truncate: {length: 30, location: 'smart'}});
@@ -809,7 +809,7 @@
         map.on("layerremove", function(){
             resetLabels([layer_SurveyPoints_4,layer_ProgressProject_5]);
         });
-        </script>      
+        </script>        
 <script>
 (function () {
 
@@ -1009,6 +1009,6 @@
     card.addTo(map);
 
 })();
-</script>  
+</script>
     </body>
 </html>
