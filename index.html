@@ -64,7 +64,7 @@
         }
         var map = L.map('map', {
             zoomControl:false, maxZoom:28, minZoom:1
-        }).fitBounds([[42.7111943993206,-85.82499138084366],[42.717450940889016,-85.81267241474832]]);
+        }).fitBounds([[42.710983250375214,-85.82542703594672],[42.72349633351205,-85.80078910375605]]);
         var hash = new L.Hash(map);
         map.attributionControl.setPrefix('<a href="https://github.com/qgis2web/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot; <a href="https://qgis.org">QGIS</a>');
         var autolinker = new Autolinker({truncate: {length: 30, location: 'smart'}});
@@ -483,8 +483,7 @@
 '<a style="display:inline-block;color:white !important;background:#0066cc;padding:3px 8px;border-radius:4px;font-weight:bold;text-decoration:none;" href="' + String(feature.properties['MTRs']).trim() + '" target="_blank">Open MTR</a>' 
 : '') + 
 '</td>\
-</tr>\
-                </table>';
+</tr>\                </table>';
             var content = removeEmptyRowsFromPopupContent(popupContent, feature);
 			layer.on('popupopen', function(e) {
 				addClassToPopupIfMedia(content, e.popup);
