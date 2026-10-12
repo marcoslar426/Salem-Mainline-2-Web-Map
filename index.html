@@ -64,7 +64,7 @@
         }
         var map = L.map('map', {
             zoomControl:false, maxZoom:28, minZoom:1
-        }).fitBounds([[42.71430703808341,-85.82404395202602],[42.72056357965183,-85.81172498593068]]);
+        }).fitBounds([[42.71628170148032,-85.82163425135452],[42.71706376917637,-85.82009438059261]]);
         var hash = new L.Hash(map);
         map.attributionControl.setPrefix('<a href="https://github.com/qgis2web/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot; <a href="https://qgis.org">QGIS</a>');
         var autolinker = new Autolinker({truncate: {length: 30, location: 'smart'}});
@@ -468,7 +468,7 @@
                         <th scope="row">STATUS</th>\
                         <td class="visible-with-data" id="STATUS">' + (feature.properties['STATUS'] !== null ? autolinker.link(String(feature.properties['STATUS']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
                     </tr>\
-                   <tr>\
+                    <tr>\
 <th scope="row">PHOTO</th>\
 <td class="visible-with-data" id="PHOTO">' + 
 (feature.properties['PHOTO'] ? 
@@ -711,7 +711,7 @@
             {label: '<img src="legend/LOD_3.png" /> LOD', layer: layer_LOD_3},
             {label: '<img src="legend/Mainline2Centerline_2.png" /> Mainline 2 Centerline', layer: layer_Mainline2Centerline_2},
             {label: '<img src="legend/ML2Wetland_1.png" /> ML2 Wetland', layer: layer_ML2Wetland_1},
-            {label: "Aerial Imagery", layer: layer_AerialImagery_0},]
+            {label: "Aerial Imagery", layer: layer_AerialImagery_0, radioGroup: 'bm' },]
         var lay = L.control.layers.tree(null, overlaysTree,{
             //namedToggle: true,
             //selectorBack: false,
@@ -809,7 +809,7 @@
         map.on("layerremove", function(){
             resetLabels([layer_SurveyPoints_4,layer_ProgressProject_5]);
         });
-        </script>   
+        </script>  
 <script>
 (function () {
 
@@ -1009,6 +1009,6 @@
     card.addTo(map);
 
 })();
-</script>     
+</script>      
     </body>
 </html>
