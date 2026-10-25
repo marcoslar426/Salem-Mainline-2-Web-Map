@@ -757,7 +757,7 @@ function fnc_project_color(values, context) {
 
 
 
-function exp_label_ProgressProject_5_eval_expression(context) {
+function exp_label_ProgressProject_6_eval_expression(context) {
     // PROJECT || ' | ' || progress_PERCENT || ' complete | ' || progress_INSTALLED_FT || ' / ' || progress_TOTAL_FT || ' FT'
 
     var feature = context.feature;
@@ -770,7 +770,7 @@ function exp_label_ProgressProject_5_eval_expression(context) {
 }
 
 
-function exp_label_ProgressProject_5_eval_expression(context) {
+function exp_label_ProgressProject_6_eval_expression(context) {
     // PROJECT || ' | ' || progress_PERCENT || ' complete | ' || progress_INSTALLED_FT || ' / ' || progress_TOTAL_FT || ' FT'
 
     var feature = context.feature;
