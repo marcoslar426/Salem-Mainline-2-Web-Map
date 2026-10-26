@@ -11,6 +11,7 @@
         <link rel="stylesheet" href="css/L.Control.Locate.min.css">
         <link rel="stylesheet" href="css/qgis2web.css">
         <link rel="stylesheet" href="css/fontawesome-all.min.css">
+        <link rel="stylesheet" href="css/leaflet-search.css">
         <link rel="stylesheet" href="css/leaflet.photon.css">
         <link rel="stylesheet" href="css/leaflet-measure.css">
         <style>
@@ -39,6 +40,7 @@
         <script src="js/labels.js"></script>
         <script src="js/leaflet.photon.js"></script>
         <script src="js/leaflet-measure.js"></script>
+        <script src="js/leaflet-search.js"></script>
         <script src="data/ML2Wetland_1.js"></script>
         <script src="data/ProposedMainline2Centerline_2.js"></script>
         <script src="data/ActualMainline2Centerline_3.js"></script>
@@ -65,7 +67,7 @@
         }
         var map = L.map('map', {
             zoomControl:false, maxZoom:28, minZoom:1
-        }).fitBounds([[42.708230392210496,-85.82362067028433],[42.71251365043268,-85.81746118729487]]);
+        }).fitBounds([[42.71438997573192,-85.8206675889914],[42.7144375134084,-85.82057134706969]]);
         var hash = new L.Hash(map);
         map.attributionControl.setPrefix('<a href="https://github.com/qgis2web/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot; <a href="https://qgis.org">QGIS</a>');
         var autolinker = new Autolinker({truncate: {length: 30, location: 'smart'}});
@@ -493,8 +495,7 @@
                         <td class="visible-with-data" id="SEAM_ORIENTATION_CLOCK">' + (feature.properties['SEAM_ORIENTATION_CLOCK'] !== null ? autolinker.link(String(feature.properties['SEAM_ORIENTATION_CLOCK']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <th scope="row">ELEVATION</th>\
-                        <td class="visible-with-data" id="CONST._GRADE_COVER">' + (feature.properties['CONST._GRADE_COVER'] !== null ? autolinker.link(String(feature.properties['CONST._GRADE_COVER']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                        <td colspan="2">' + (feature.properties['ELEVATION'] !== null ? autolinker.link(String(feature.properties['ELEVATION']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
                         <th scope="row">FINAL_GRADE_COVER</th>\
@@ -851,6 +852,16 @@
               addLabel(layer, i);
               i++;
         });
+        map.addControl(new L.Control.Search({
+            layer: layer_SurveyPoints_5,
+            initial: false,
+            hideMarkerOnCollapse: true,
+            propertyName: 'WELD_NUM'}));
+        if (typeof url === 'undefined') {
+            document.getElementsByClassName('search-button')[0].className += ' fa fa-binoculars';
+        } else {
+            document.getElementsByClassName('search-button')[1].className += ' fa fa-binoculars';
+        }
         resetLabels([layer_SurveyPoints_5,layer_ProgressProject_6]);
         map.on("zoomend", function(){
             resetLabels([layer_SurveyPoints_5,layer_ProgressProject_6]);
