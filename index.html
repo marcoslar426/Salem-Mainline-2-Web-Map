@@ -67,7 +67,7 @@
         }
         var map = L.map('map', {
             zoomControl:false, maxZoom:28, minZoom:1
-        }).fitBounds([[42.713648822278714,-85.82755366202223],[42.72133684409471,-85.81198895527818]]);
+        }).fitBounds([[42.710019157722826,-85.83670964498243],[42.725395201354814,-85.80558023149435]]);
         var hash = new L.Hash(map);
         map.attributionControl.setPrefix('<a href="https://github.com/qgis2web/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot; <a href="https://qgis.org">QGIS</a>');
         var autolinker = new Autolinker({truncate: {length: 30, location: 'smart'}});
@@ -521,21 +521,13 @@
                         <td class="visible-with-data" id="STATUS">' + (feature.properties['STATUS'] !== null ? autolinker.link(String(feature.properties['STATUS']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-<th scope="row">PHOTO</th>\
-<td class="visible-with-data" id="PHOTO">' + 
-(feature.properties['PHOTO'] ? 
-'<a style="display:inline-block;color:white !important;background:#0066cc;padding:3px 8px;border-radius:4px;font-weight:bold;text-decoration:none;" href="' + String(feature.properties['PHOTO']).trim() + '" target="_blank">Open Photo</a>' 
-: '') + 
-'</td>\
-</tr>\
-<tr>\
-<th scope="row">MTRs</th>\
-<td class="visible-with-data" id="MTRs">' + 
-(feature.properties['MTRs'] ? 
-'<a style="display:inline-block;color:white !important;background:#0066cc;padding:3px 8px;border-radius:4px;font-weight:bold;text-decoration:none;" href="' + String(feature.properties['MTRs']).trim() + '" target="_blank">Open MTR</a>' 
-: '') + 
-'</td>\
-</tr>\
+                        <th scope="row">PHOTO</th>\
+                        <td class="visible-with-data" id="PHOTO">' + (feature.properties['PHOTO'] != null && String(feature.properties['PHOTO']).trim() ? '<a style="display:inline-block;color:white !important;background:#0066cc;padding:3px 8px;border-radius:4px;font-weight:bold;text-decoration:none;" href="' + String(feature.properties['PHOTO']).trim().replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;') + '" target="_blank" rel="noopener noreferrer">Open Photo</a>' : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">MTRs</th>\
+                        <td class="visible-with-data" id="MTRs">' + (feature.properties['MTRs'] != null && String(feature.properties['MTRs']).trim() ? '<a style="display:inline-block;color:white !important;background:#0066cc;padding:3px 8px;border-radius:4px;font-weight:bold;text-decoration:none;" href="' + String(feature.properties['MTRs']).trim().replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;') + '" target="_blank" rel="noopener noreferrer">Open MTR</a>' : '') + '</td>\
+                    </tr>\
                 </table>';
             var content = removeEmptyRowsFromPopupContent(popupContent, feature);
 			layer.on('popupopen', function(e) {
@@ -607,18 +599,6 @@
                     </tr>\
                     <tr>\
                         <td colspan="2">' + (feature.properties['PERCENT'] !== null ? autolinker.link(String(feature.properties['PERCENT']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <th scope="row">progress_TOTAL_FT</th>\
-                        <td class="visible-with-data" id="progress_TOTAL_FT">' + (feature.properties['progress_TOTAL_FT'] !== null ? autolinker.link(String(feature.properties['progress_TOTAL_FT']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <th scope="row">progress_INSTALLED_FT</th>\
-                        <td class="visible-with-data" id="progress_INSTALLED_FT">' + (feature.properties['progress_INSTALLED_FT'] !== null ? autolinker.link(String(feature.properties['progress_INSTALLED_FT']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <th scope="row">progress_PERCENT</th>\
-                        <td class="visible-with-data" id="progress_PERCENT">' + (feature.properties['progress_PERCENT'] !== null ? autolinker.link(String(feature.properties['progress_PERCENT']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
                     </tr>\
                 </table>';
             var content = removeEmptyRowsFromPopupContent(popupContent, feature);
@@ -873,5 +853,13 @@
             resetLabels([layer_SurveyPoints_5,layer_ProgressProject_6]);
         });
         </script>        
+    
+<!-- HEI Project Report link: portable relative PDF -->
+<style>
+#hei-project-report-link{position:fixed;left:10px;bottom:20px;z-index:1000;background:#fff;color:#17354a;padding:9px 12px;border:1px solid #bbb;border-radius:6px;box-shadow:0 1px 5px #0004;font:600 13px Arial,sans-serif;text-decoration:none;max-width:calc(100vw - 35px)}
+#hei-project-report-link:hover{background:#f0f6f9}
+@media(max-width:650px){#hei-project-report-link{bottom:12px;left:8px;padding:7px 10px;font-size:12px}}
+</style>
+<a id="hei-project-report-link" href="reports/Salem_Mainline_2_Project_Report.pdf" target="_blank" rel="noopener noreferrer" title="Open Salem Mainline 2 Project Report (PDF)">&#128196; Project Report (PDF)</a>
     </body>
 </html>
