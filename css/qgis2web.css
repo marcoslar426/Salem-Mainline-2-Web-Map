@@ -194,7 +194,12 @@
             justify-content: center;
             align-items: center;
         }
+        .leaflet-marker-icon{
+            white-space: nowrap;
+        }
+        
         .css_ProgressProject_6 {
+            pointer-events: none!important;
             text-shadow: -1px -1px 0 #ffffff,
                 -1px 0px 0 #ffffff,
                 -1px 1px 0 #ffffff,
